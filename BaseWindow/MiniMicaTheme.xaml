@@ -1,0 +1,199 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Windows 11 Mica Design Colors in Light and Dark Themes -->
+    <!-- Opacity must be 1.0 -->
+    <SolidColorBrush x:Key="MicaBackground_L" Color="#FFF3F3F3" />
+    <SolidColorBrush x:Key="MicaBackground_D" Color="#FF202020" />
+    <Color x:Key="MicaDropShadow_L">#808080</Color>
+    <Color x:Key="MicaDropShadow_D">#000000</Color>
+
+    <SolidColorBrush x:Key="Foreground_L_Active" Color="Black" />
+    <SolidColorBrush x:Key="Foreground_L_Inactive" Color="Silver" />
+    <SolidColorBrush x:Key="Foreground_D_Active" Color="White" />
+    <SolidColorBrush x:Key="Foreground_D_Inactive" Color="Gray" />
+
+    <SolidColorBrush x:Key="HoverBackground_Close" Color="#C42B1C" />
+    <SolidColorBrush x:Key="HoverForeground_Close" Color="White" />
+    <SolidColorBrush x:Key="HoverBackground_MaxMin_L" Color="#DBDBDB" />
+    <SolidColorBrush x:Key="HoverForeground_MaxMin_L" Color="Black" />
+    <SolidColorBrush x:Key="HoverBackground_MaxMin_D" Color="#363636" />
+    <SolidColorBrush x:Key="HoverForeground_MaxMin_D" Color="White" />
+
+    <!-- Base Style for all window control buttons -->
+    <Style x:Key="WindowButtonBase" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseButtonBase" TargetType="Button" BasedOn="{StaticResource WindowButtonBase}">
+        <Setter Property="Content" Value="&#xE8BB;"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBackground_Close}"/>
+                <Setter Property="Foreground" Value="{StaticResource HoverForeground_Close}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MaxMinButtonBase_Light" TargetType="Button" BasedOn="{StaticResource WindowButtonBase}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBackground_MaxMin_L}"/>
+                <Setter Property="Foreground" Value="{StaticResource HoverForeground_MaxMin_L}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MaxMinButtonBase_Dark" TargetType="Button" BasedOn="{StaticResource WindowButtonBase}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBackground_MaxMin_D}"/>
+                <Setter Property="Foreground" Value="{StaticResource HoverForeground_Close}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Close Button Variants -->
+    <Style x:Key="CloseButton_L_Activated"   TargetType="Button" BasedOn="{StaticResource CloseButtonBase}" >
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Active}"/>
+    </Style>
+    <Style x:Key="CloseButton_L_Deactivated" TargetType="Button" BasedOn="{StaticResource CloseButtonBase}" >
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Inactive}"/>
+    </Style>
+    <Style x:Key="CloseButton_D_Activated"   TargetType="Button" BasedOn="{StaticResource CloseButtonBase}" >
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Active}"/>
+    </Style>
+    <Style x:Key="CloseButton_D_Deactivated" TargetType="Button" BasedOn="{StaticResource CloseButtonBase}" >
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Inactive}"/>
+    </Style>
+
+    <!-- Maximize Button Variants -->
+    <Style x:Key="MaximizeButton_L_Activated"   TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Light}">
+        <Setter Property="Content" Value="&#xE922;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Active}"/>
+    </Style>
+    <Style x:Key="MaximizeButton_L_Deactivated" TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Light}">
+        <Setter Property="Content" Value="&#xE922;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Inactive}"/>
+    </Style>
+    <Style x:Key="MaximizeButton_D_Activated"   TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Dark}">
+        <Setter Property="Content" Value="&#xE922;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Active}"/>
+    </Style>
+    <Style x:Key="MaximizeButton_D_Deactivated" TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Dark}">
+        <Setter Property="Content" Value="&#xE922;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Inactive}"/>
+    </Style>
+
+    <!-- Minimize Button Variants -->
+    <Style x:Key="MinimizeButton_L_Activated"   TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Light}">
+        <Setter Property="Content" Value="&#xE921;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Active}"/>
+    </Style>
+    <Style x:Key="MinimizeButton_L_Deactivated" TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Light}">
+        <Setter Property="Content" Value="&#xE921;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Inactive}"/>
+    </Style>
+    <Style x:Key="MinimizeButton_D_Activated"   TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Dark}">
+        <Setter Property="Content" Value="&#xE921;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Active}"/>
+    </Style>
+    <Style x:Key="MinimizeButton_D_Deactivated" TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Dark}">
+        <Setter Property="Content" Value="&#xE921;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Inactive}"/>
+    </Style>
+
+    <!-- Settings Button Variants -->
+    <Style x:Key="SettingsButton_L_Activated"   TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Light}">
+        <Setter Property="Content" Value="&#xE713;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Active}"/>
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    <Style x:Key="SettingsButton_L_Deactivated" TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Light}">
+        <Setter Property="Content" Value="&#xE713;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_L_Inactive}"/>
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    <Style x:Key="SettingsButton_D_Activated"   TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Dark}">
+        <Setter Property="Content" Value="&#xE713;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Active}"/>
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    <Style x:Key="SettingsButton_D_Deactivated" TargetType="Button" BasedOn="{StaticResource MaxMinButtonBase_Dark}">
+        <Setter Property="Content" Value="&#xE713;"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_D_Inactive}"/>
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!-- Scroll Buttons -->
+    <Style x:Key="ScrollArrowButton" TargetType="RepeatButton">
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="#66FFFFFF"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Canvas Background with Images -->
+    <Style x:Key="CanvasBorderStyleImage_L" TargetType="Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/res/canvas_l.jpg" Stretch="UniformToFill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="CanvasBorderStyleImage_D" TargetType="Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/res/canvas_d.jpg" Stretch="UniformToFill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Canvas Background with Solid Colors -->
+    <Style x:Key="CanvasBorderStyle_L" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource MicaBackground_L}" />
+    </Style>
+    <Style x:Key="CanvasBorderStyle_D" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource MicaBackground_D}" />
+    </Style>
+
+    <!-- Text Colors -->
+    <!--
+    <SolidColorBrush x:Key="TextColor_L_Primary" Color="#000000" />
+    <SolidColorBrush x:Key="TextColor_L_Secondary" Color="#666666" />
+    <SolidColorBrush x:Key="TextColor_D_Primary" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="TextColor_D_Secondary" Color="#999999" />
+    -->
+
+</ResourceDictionary>

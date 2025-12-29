@@ -1,0 +1,110 @@
+﻿<Window x:Class="MiniMica.MiniMicaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniMica"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Width="960" Height="670" MinWidth="500" MinHeight="670"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MicaBackground_L}"
+        Loaded="OnLoaded" Activated="OnActivated" Deactivated="OnDeactivated" MouseMove="OnMouseMove" MouseLeftButtonUp="OnMouseLeftButtonUp"
+        SizeChanged="OnWindowSizeChanged"
+        Title="Contoso">
+    <!--
+            Notes:
+            * Title is not display in the window, but visible in the Task Switcher
+            * WindowStyle="None" removes the standard window chrome (the title bar, The minimize, maximize, and close buttons, and the window border)
+            * Do not set AllowsTransparency="True" because it disables the drop shadow effects
+            * Background is for mockup only, it is not visible when WindowStyle="None"
+    -->
+
+    <!--
+            About Window Dimensions:
+            * Most single-page apps are 960x640 or 900x600.
+            * Considering various screen resolutions and DPI settings, the most magrinal case is 1920x1080 @150% SPI which results in 672px height 
+                excluding the taskbar (48px height).
+            * Windows 11 Snap Layouts guidance requires minimum width (≤ 500 epx, ideally ≤ 330 epx) but no minimum height.  The Windows Settings 
+                app has minimum sizes 500x320.
+            * MiniMica specifies a minimum width of 500px and a minimum height of 670px with an optional horizontal scrollbar.
+    -->
+
+    <!-- Have GlassFrameThickness="1" to enable the drop shade -->
+    <!-- ResizeBorderThickness system default is 8px -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome x:Name="MicaWindowChrome"
+                      CaptionHeight="0"
+                      GlassFrameThickness="1"
+                      ResizeBorderThickness="8">
+        </WindowChrome>
+    </WindowChrome.WindowChrome>
+
+    <!-- Resource Dictionary for Common Styles -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MiniMicaTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <!-- Root Grid -->
+    <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
+        <Grid x:Name="WindowControls" VerticalAlignment="Top" Height="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- App icon (32x32 PNG) and window text -->
+            <!-- Use margin (18,8,0,0) if window text only -->
+            <Image x:Name="iconApp" Margin="18,8,0,0" Width="16" Height="16" Source="/res/app.png" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="Fill"/>
+            <TextBlock x:Name="textMain" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,8,0,0" Text="Contoso" FontSize="12" FontStyle="Normal" Foreground="Black"/>
+
+            <Rectangle AutomationProperties.Name="Close" Grid.Column="0" Fill="#00000000" StrokeThickness="0" MouseLeftButtonDown="MouseLeftButton_Down"/>
+            <Button x:Name="btnSettings" AutomationProperties.Name="Settings" Grid.Column="1" Style="{StaticResource SettingsButton_L_Activated}" Click="BtnSettings_Click"/>
+            <Button x:Name="btnMinimize" AutomationProperties.Name="Minimize" Grid.Column="2" Style="{StaticResource MinimizeButton_L_Activated}" Click="BtnMinimize_Click"/>
+            <Button x:Name="btnMaximize" AutomationProperties.Name="Maximize" Grid.Column="3" Style="{StaticResource MaximizeButton_L_Activated}" Click="BtnMaximize_Click"/>
+            <Button x:Name="btnClose" AutomationProperties.Name="Close" Grid.Column="4" Style="{StaticResource CloseButton_L_Activated}" Click="BtnClose_Click"/>
+        </Grid>
+
+        <Grid x:Name="CanvasRoot" Margin="0,30,0,0">
+
+            <ScrollViewer x:Name="ContentScroller"
+                          HorizontalScrollBarVisibility="Hidden" 
+                          VerticalScrollBarVisibility="Disabled">
+
+                <!-- ContentControl with Border -->
+                <Border x:Name="CanvasBorder"
+                        Style="{StaticResource CanvasBorderStyle_L}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="960" Height="640"
+                        CornerRadius="8"
+                        BorderBrush="#20808080"
+                        BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect x:Name="DropShadow" ShadowDepth="8" Direction="315" Color="#808080" Opacity="0.25" BlurRadius="25"/>
+                    </Border.Effect>
+
+                    <!-- Custom Content Control -->
+                    <ContentControl>
+                        <local:MainControl x:Name="ContentCtrl" />
+                    </ContentControl>
+
+                </Border>
+
+            </ScrollViewer>
+
+            <RepeatButton x:Name="btnScrollLeft" Content="&#xE0E2;" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Style="{StaticResource ScrollArrowButton}" Click="ScrollLeft_Click"/>
+            <RepeatButton x:Name="btnScrollRight" Content="&#xE0E3;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Style="{StaticResource ScrollArrowButton}" Click="ScrollRight_Click"/>
+
+        </Grid>
+    </Grid>
+
+</Window>
